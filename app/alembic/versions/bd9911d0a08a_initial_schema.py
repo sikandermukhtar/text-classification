@@ -1,8 +1,8 @@
-"""create users, user_auth, verification_tokens table
+"""initial schema
 
-Revision ID: 8010f121c370
+Revision ID: bd9911d0a08a
 Revises: 
-Create Date: 2025-09-20 22:36:55.978139
+Create Date: 2025-09-21 17:28:43.067827
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '8010f121c370'
+revision: str = 'bd9911d0a08a'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -27,6 +27,7 @@ def upgrade() -> None:
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('phone_number', sa.String(length=18), nullable=True),
     sa.Column('profile_img_url', sa.Text(), nullable=True),
+    sa.Column('bio', sa.Text(), nullable=True),
     sa.Column('is_verified', sa.Boolean(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
@@ -39,7 +40,7 @@ def upgrade() -> None:
     op.create_table('user_auth',
     sa.Column('id', sa.UUID(), nullable=False),
     sa.Column('user_id', sa.UUID(), nullable=True),
-    sa.Column('password_hash', sa.Text(), nullable=False),
+    sa.Column('hashed_password', sa.Text(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
