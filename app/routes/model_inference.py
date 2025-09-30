@@ -6,8 +6,9 @@ from pathlib import Path
 from sentence_transformers import SentenceTransformer
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent 
-quora_classifier_path = BASE_DIR / "model" / "trained_models" / "classifier.pkl"
-imbd_classifier_path = BASE_DIR / "model" / "trained_models" / "imbd_classifier.pkl"
+
+quora_classifier_path = BASE_DIR / "model" / "trained_models" / "quora_classifier.pkl"
+imdb_classifier_path = BASE_DIR / "model" / "trained_models" / "imdb_classifier.pkl"
 
 router = APIRouter(
     prefix="/model",
@@ -16,7 +17,7 @@ router = APIRouter(
 
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 quora_classifier = joblib.load(quora_classifier_path)
-imbd_classifier = joblib.load(imbd_classifier_path)
+imdb_classifier = joblib.load(imdb_classifier_path)
 
 @router.post("/quora/classify")
 def classify_quora_questions(data: TextInput):
@@ -48,7 +49,7 @@ def classify_imbd_reviews(data: TextInput):
 
         embedding = embedder.encode([cleaned_text], convert_to_numpy=True)
         print(embedding)
-        pred = imbd_classifier.predict(embedding)[0]
+        pred = imdb_classifier.predict(embedding)[0]
         print(pred)
         label = "Positive" if pred > 0.5 else "Negative"
         probability = float(pred) 
