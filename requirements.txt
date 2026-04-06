@@ -1,0 +1,15 @@
+fastapi[standard]
+uvicorn
+passlib[bcrypt]
+python-jose
+sqlalchemy
+alembic
+psycopg[binary]
+aiosqlite
+argon2-cffi
+joblib
+sentence_transformers
+numpy
+keras
+tensorflow-cpu>=2.15.0,<2.22.0
+tf-keras
