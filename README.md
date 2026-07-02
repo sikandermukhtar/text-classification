@@ -1,5 +1,7 @@
 # Text Classification API
 
+### **Code realted to model training and dataset EDA is in text-classification.ipynb**
+
 A robust FastAPI-based backend for text classification, featuring sentiment analysis (IMDB) and sincere vs. insincere question detection (Quora). 
 
 ## 🚀 Features
